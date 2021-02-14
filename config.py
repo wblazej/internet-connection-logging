@@ -1,3 +1,2 @@
-LOGS_FILE_NAME = "results.json"
 ICMP_DESTINATION_HOST = "8.8.8.8"
 ICMP_TIMEOUT = 0.5

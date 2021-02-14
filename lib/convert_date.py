@@ -8,6 +8,7 @@ def convert_date(date: datetime):
     day = date.day
     month = date.month
     year = date.year
+    day_of_week = get_week_day(date.weekday())
 
     if seconds < 10: seconds = f'0{seconds}'
     if minutes < 10: minutes = f'0{minutes}'
@@ -15,4 +16,17 @@ def convert_date(date: datetime):
     if day < 10: day = f'0{day}'
     if month < 10: month = f'0{month}'
 
-    return f'{day}.{month}.{year} {hours}:{minutes}:{seconds}.{microseconds}'
+    return f'{day_of_week} {day}.{month}.{year} {hours}:{minutes}:{seconds}.{microseconds}'
+
+def get_week_day(day):
+    days = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ]
+
+    return days[day]

@@ -5,5 +5,5 @@ def check():
     try:
         result = ping(ICMP_DESTINATION_HOST, timeout=ICMP_TIMEOUT, count=1)
         return result.success()
-    except:
+    except OSError:
         return False
