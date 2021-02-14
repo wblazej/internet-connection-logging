@@ -1,6 +1,7 @@
 from time import sleep
 from lib.check import check
 from lib.status import Status
+from config import PINGS_BREAK_ONLINE, PINGS_BREAK_OFFLINE
 
 if __name__ == "__main__":
     print("Starting...")
@@ -8,9 +9,9 @@ if __name__ == "__main__":
     connection_status = Status()
 
     while True:
-        spleep_time = 1
+        spleep_time = PINGS_BREAK_ONLINE
         if connection_status.internet_connection == False:
-            spleep_time = 0.1
+            spleep_time = PINGS_BREAK_OFFLINE
 
         try:
             sleep(spleep_time)
