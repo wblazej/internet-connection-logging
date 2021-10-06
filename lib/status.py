@@ -1,32 +1,31 @@
 from datetime import datetime
-from lib.convert_date import convert_date
-from lib.convert_time import convert_time
 
 class Status:
     def __init__(self):
         self.internet_connection = None
-        self.internet_connection_lost_timestamp = None
+        self.internet_connection_lost = None
 
     def change(self, status: bool):
         if self.internet_connection == None:
             self.internet_connection = status
             if not status:
-                self.internet_connection_lost_timestamp = datetime.now().timestamp()
-                self.__print_connection_break_starting__()
+                self.internet_connection_lost = datetime.now()
+                self.__print_connection_break_starting()
 
         if self.internet_connection and not status:
             self.internet_connection = False
-            self.internet_connection_lost_timestamp = datetime.now().timestamp()
-            self.__print_connection_break_starting__()
+            self.internet_connection_lost = datetime.now()
+            self.__print_connection_break_starting()
 
         if not self.internet_connection and status:
             self.internet_connection = True
-            begin = datetime.fromtimestamp(self.internet_connection_lost_timestamp)
-            end = datetime.fromtimestamp(datetime.now().timestamp())
+            end = datetime.now()
 
-            print(f"\033[31m  End time: \033[0m{convert_date(end)}")
-            print(f"\033[31m\033[1m    Lasted: \033[0m{convert_time(end - begin)}\n")
+            print(f"\033[31m  End time: \033[0m{self.__convert_date(end)}")
+            print(f"\033[31m\033[1m    Lasted: \033[0m{(end - self.internet_connection_lost)}\n")
 
-    def __print_connection_break_starting__(self):
-        date = datetime.fromtimestamp(self.internet_connection_lost_timestamp)
-        print(f"\n\033[31mStart time: \033[0m{convert_date(date)}")
+    def __print_connection_break_starting(self):
+        print(f"\n\033[31mStart time: \033[0m{self.__convert_date(self.internet_connection_lost)}")
+
+    def __convert_date(self, date: datetime):
+        return date.strftime("%A %d.%m.%Y %H:%M:%S.%f")
